@@ -1,0 +1,68 @@
+{
+  "tab": {
+    "home": "Home Page",
+    "rank": "Rank List",
+    "settings": "Settings"
+  },
+  "home": {
+    "search": "Search",
+    "tag": "Hot Tags",
+    "movie": "Movie",
+    "tv": "TV",
+    "enter": "Enter Keywords"
+  },
+  "settings": {
+    "title": "Settings",
+    "language": "Language",
+    "version": "Version",
+    "theme": "Theme",
+    "theme_light": "Light",
+    "theme_dark": "Dark",
+    "theme_system": "Follow System"
+  },
+  "movie": {
+    "seen": " Seen",
+    "scored": " Scored",
+    "none_rating": "None",
+    "unrelease": "Unrelease",
+    "review": "Review",
+    "share": "Share",
+    "summary": "Summary",
+    "casts": "Directors / Actors",
+    "director": "Director",
+    "trailers": "Trailers",
+    "comments": "Comments",
+    "comments_all": "All",
+    "recommended": "Recommended",
+    "photos": "Photos",
+    "release": "Release",
+    "genre": "Genre",
+    "duration": "Duration",
+    "region": "Region",
+    "language": "Language"
+  },
+  "refresh": {
+    "empty": "No Data",
+    "reload":"Reload",
+    "canRefresh": "Release to refresh",
+    "canLoading": "Release to load more",
+    "idleLoading": "Pull up Load more",
+    "idleRefresh": "Pull down Refresh",
+    "loadFailed": "Load Failed",
+    "loading": "Loading…",
+    "noMore": "No more data",
+    "refreshing": "Refreshing…",
+    "refreshComplete": "Refresh completed",
+    "refreshFailed":"Refresh failed"
+  },
+  "file": {
+    "downloading": "Downloading...",
+    "total": "Total:",
+    "completed": "Completed:",
+    "permission": "No Permission to Access Album",
+    "cancel": "Cancel",
+    "save": "Save to Album",
+    "download": "Download to Album",
+    "settings": "Open App Settings"
+  }
+}
