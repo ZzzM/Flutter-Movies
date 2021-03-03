@@ -18,12 +18,15 @@
 ## 预览
 
 - 主页
-<img src="previews/1.gif"><img src="previews/2.gif">
-<img src="previews/3.gif"><img src="previews/4.gif">
+
+<img src="previews/1.gif" width = 200> <img src="previews/2.gif" width = 200>
+<img src="previews/3.gif" width = 200> <img src="previews/4.gif" width = 200>
+
 
 - 详情
-<img src="previews/5.gif"><img src="previews/6.gif">
-<img src="previews/7.gif"><img src="previews/8.gif">
+
+<img src="previews/5.gif" width = 200> <img src="previews/6.gif" width = 200>
+<img src="previews/7.gif" width = 200> <img src="previews/8.gif" width = 200>
 
 
 ## 依赖库
