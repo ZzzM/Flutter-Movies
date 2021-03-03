@@ -1,13 +1,7 @@
-import 'package:movies/util/localization_manager.dart';
-import 'package:movies/view_model/theme_view_model.dart';
-import 'package:flutter/material.dart';
+
 import 'package:package_info/package_info.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class StorageKey {
-  static const themeMode = 'kThemeMode';
-  static const language = 'kLanguage';
-}
 
 class StorageManager {
 
@@ -19,20 +13,21 @@ class StorageManager {
     packageInfo = await PackageInfo.fromPlatform();
   }
 
-  static set language(Language language) {
-    prefs.setString(StorageKey.language, languageFile(language));
-  }
+  static setInt(String key, int value) => prefs.setInt(key, value);
 
-  static get language => languageType(prefs.getString(StorageKey.language) ?? languageFile(Language.zh));
+  static getInt(String key) => prefs.getInt(key);
 
-
-  static set themeMode(ThemeMode mode) {
-    prefs.setString(StorageKey.themeMode, themeName(mode));
-  }
-
-  static ThemeMode get themeMode {
-    return fetchThemeMode(prefs.getString(StorageKey.themeMode));
-  }
-
+  // static set local(Locale _locale) {
+  //   prefs.setInt(StorageKey.local, _locale.index);
+  // }
+  //
+  // static Locale get local => LocalizationManger.supportedLocales[prefs.getInt(StorageKey.local) ?? 0];
+  //
+  //
+  // static set themeMode(ThemeMode _mode) {
+  //   prefs.setInt(StorageKey.themeMode, _mode.index);
+  // }
+  //
+  // static ThemeMode get themeMode => ThemeMode.values[prefs.getInt(StorageKey.themeMode) ?? 0];
 
 }

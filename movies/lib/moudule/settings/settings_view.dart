@@ -1,57 +1,58 @@
-
+import 'package:movies/generated/l10n.dart';
 import 'package:movies/util/constant.dart';
-import 'package:movies/util/localization_manager.dart';
-
 import 'package:movies/util/router_manager.dart';
 import 'package:movies/util/storage_manager.dart';
-import 'package:movies/view_model/language_view_model.dart';
 import 'package:flutter/material.dart';
+
+import 'package:movies/view_model/locale_view_model.dart';
+import 'package:movies/view_model/theme_view_model.dart';
 import 'package:provider/provider.dart';
 
-import 'package:movies/view_model/theme_view_model.dart';
-
-
 class SettingsView extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
+    final version =
+        'v ${StorageManager.packageInfo.version}(${StorageManager.packageInfo.buildNumber})';
 
-    return Consumer<LanguageViewModel>(builder: (context, viewModel, _) {
-      return Scaffold(
-        appBar: AppBar(
-            title: Text(LocalizationManger.i18n(context, 'tab.settings'))
-        ),
-        body: ListView(
-          children: ListTile.divideTiles(
-              context: context,
-              tiles: [
-                ListTile(
-                    title: Text(LocalizationManger.i18n(context, 'settings.language')),
-                    subtitle: Text(languageName(StorageManager.language)),
-                    trailing: Icon(Icons.chevron_right, color: ConsColor.theme),
-                    onTap: () {
-                      RouterManager.toSetting(context, 'settings.language');
-                    }),
-                ListTile(
-                    title: Text(LocalizationManger.i18n(context, 'settings.theme')),
-                    subtitle: Text(LocalizationManger.i18n(context, themeKey(StorageManager.themeMode))),
-                    trailing: Icon(Icons.chevron_right, color: ConsColor.theme),
-                    onTap: () {
-                      RouterManager.toSetting(context, 'settings.theme');
-                    }),
-                ListTile(
-                    title: Text(LocalizationManger.i18n(context, 'settings.version')),
-                    trailing: Text(
-                        'v ${StorageManager.packageInfo.version}(${StorageManager.packageInfo.buildNumber})',
-                        style: TextStyle(fontSize: 15))
-                )
-              ]
-          ).toList()
-        ),
-      );
-    });
+    final locale = Provider.of<LocaleViewModel>(context, listen: false).current,
+        themeMode = Provider.of<ThemeViewModel>(context, listen: false).current;
+
+    final titles = [
+      S.of(context).settings_language,
+      S.of(context).settings_theme,
+      S.of(context).settings_about
+    ];
+
+    final subtitles = [locale.displayName, themeMode.displayName, ''];
+
+
+    final actions = [
+      ()=>RouterManager.toSetting(context, StorageKeys.locale),
+          ()=>RouterManager.toSetting(context, StorageKeys.themeMode),
+      ()=>showAboutDialog(
+          context: context,
+          applicationName: StorageManager.packageInfo.appName,
+          applicationVersion: version,
+          applicationLegalese: 'By ZzzM')];
+
+    return Scaffold(
+        appBar: AppBar(title: Text(S.of(context).settings_title)),
+        body: ListView.separated(
+            itemBuilder: (_, index) {
+
+              final title = titles[index],
+                  subtitle = subtitles[index],
+                  action = actions[index];
+
+              return ListTile(
+                  title: Text(title),
+                  subtitle: subtitle.isNotEmpty ? Text(subtitle) : null,
+                  trailing: Icon(Icons.chevron_right),
+                onTap: action,
+              );
+            },
+            separatorBuilder: (_, __) => Divider(),
+            itemCount: titles.length));
 
   }
-
-
 }

@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:movies/generated/l10n.dart';
 import 'package:movies/model/movie_model.dart';
-import 'package:movies/util/localization_manager.dart';
 import 'package:movies/view/player_view.dart';
 import 'package:flutter/material.dart';
 
@@ -24,7 +24,7 @@ class MovieTrailerView extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              BaseTitleView('movie.trailers'),
+              BaseTitleView(S.of(context).movie_trailers),
               Container(
                   margin: EdgeInsets.only(top: 5),
                   height: 180,

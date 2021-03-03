@@ -38,9 +38,11 @@ class NetworkManager {
 
 enum Api {
   fetchMovieList,
-  fetchMovie,
+  fetchDetail,
   fetchRanks,
-  fetchSearchList
+  fetchSearchResults,
+  fetchSearchSuggestions,
+  fetchToday
 }
 
 extension ApiExtension on Api {
@@ -50,22 +52,24 @@ extension ApiExtension on Api {
 
   BaseOptions get options {
     return BaseOptions(
-        baseUrl: baseUrl,
+        baseUrl: BaseUrl.frodo,
+        headers: {
+          'User-Agent': ''
+        },
         connectTimeout: 5000,
         receiveTimeout: 3000);
   }
 
-  String get baseUrl {
-    switch (this) {
-      case Api.fetchSearchList: return BaseUrl.v1;
-      default: return BaseUrl.v2;
-    }
-  }
 
   String path(String extra) {
 
     switch (this) {
-
+      case Api.fetchSearchResults: return '/search';
+      case Api.fetchSearchSuggestions: return '/movie/suggestion';
+      case Api.fetchDetail: return extra.replaceAll('.', '/');
+      case Api.fetchMovieList: return '/subject_collection/$extra/items';
+      case Api.fetchRanks: return '/movie/rank_list';
+      case Api.fetchToday: return '/calendar/today';
 
       default: return '';
     }
@@ -73,10 +77,6 @@ extension ApiExtension on Api {
   }
 
   Map<String, dynamic> queryParameters(Map<String, dynamic> param) {
-
-    if (this == Api.fetchSearchList) {
-      return param ?? {};
-    }
 
     Map<String, dynamic> _param = {'apikey': Apikey};
     _param.addAll(param ?? {});

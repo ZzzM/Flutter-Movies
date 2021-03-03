@@ -1,4 +1,3 @@
-import 'package:movies/model/movie_model.dart';
 import 'base_model.dart';
 
 class RankList extends BaseList {
@@ -15,12 +14,16 @@ class RankListItem extends BaseMovie  {
 
   String header_bg_image;
   String cover_url;
+
+  BaseColor color;
+
   List<RankMovie> items;
 
   RankListItem.fromJson(json) : super.fromJson(json) {
     header_bg_image = json['header_bg_image'];
     cover_url = json['cover_url'];
     items = (json['items'] as List).map((v) => RankMovie.fromJson(v)).toList();
+    color =  BaseColor.fromJson(json['background_color_scheme']);
   }
 }
 

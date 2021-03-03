@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:movies/generated/l10n.dart';
 
 import 'package:movies/model/base_model.dart';
-import 'package:movies/util/localization_manager.dart';
 
 import 'package:movies/util/router_manager.dart';
 import 'package:flutter/material.dart';
@@ -22,9 +22,13 @@ class GalleryView extends StatefulWidget {
 
     Navigator.push(
         context,
-        MaterialPageRoute(
-            fullscreenDialog: true,
-            builder: (context) => GalleryView(galleryItems, index)
+        PageRouteBuilder(
+            pageBuilder: (context, animation, __) {
+              return FadeTransition(
+                opacity: animation,
+                child: GalleryView(galleryItems, index),
+              );
+            }
         )
     );
   }
@@ -44,7 +48,6 @@ class _GalleryViewState extends State<GalleryView> {
   int _currentIndex;
   PageController _pageController;
 
-  final _scaffoldkey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
@@ -60,14 +63,13 @@ class _GalleryViewState extends State<GalleryView> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-        key: _scaffoldkey,
         backgroundColor: Colors.black,
         appBar: AppBar(
           backgroundColor: Colors.transparent,
+          iconTheme: IconThemeData(color: Colors.white),
           title: Text(
             "${_currentIndex + 1} / ${widget.galleryItems.length}",
-            style: TextStyle(
-                color: Colors.white, fontSize: 18.0, fontWeight: FontWeight.bold),
+            style: TextStyle(color: Colors.white),
           ),
           leading:  IconButton(
               icon: Icon(Icons.close),
@@ -108,7 +110,7 @@ class _GalleryViewState extends State<GalleryView> {
               });
 
         } else {
-          showSnackBar(_scaffoldkey, LocalizationManger.i18n(context, 'file.downloading'));
+          showSnackBar(context, S.of(context).file_downloading);
         }
 
       }
@@ -123,11 +125,12 @@ class _GalleryViewState extends State<GalleryView> {
 
   PhotoViewGalleryPageOptions _itemView(BuildContext context, int index) {
 
-    final galleryItem = widget.galleryItems[index];
-    final imageProvider = CachedNetworkImageProvider(galleryItem.url);
+    final item = widget.galleryItems[index];
+    final imageProvider = CachedNetworkImageProvider(item.url);
 
 
     return PhotoViewGalleryPageOptions(
+      heroAttributes: PhotoViewHeroAttributes(tag: item.url),
       imageProvider: imageProvider,
       initialScale: PhotoViewComputedScale.contained,
       minScale: PhotoViewComputedScale.contained * (0.5 + index / 10),

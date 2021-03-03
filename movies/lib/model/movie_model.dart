@@ -35,7 +35,7 @@ class Movie extends BaseMovie {
 
   List<GalleryItem> get staffs {
     actors.forEach((v) => v.subTitle = '');
-    directors.forEach((v) => v.subTitle = 'movie.director');
+    directors.forEach((v) => v.subTitle = 'director');
     return directors + actors;
   }
 
@@ -119,9 +119,9 @@ class MovieGridItem extends BaseMovie {
 
   }
 
-
   MovieGridItem.from(MovieListItem movie) : super() {
 
+    type = movie.type;
     id = movie.id;
     title = movie.title;
     cover = movie.cover;
@@ -130,9 +130,6 @@ class MovieGridItem extends BaseMovie {
   }
 
 }
-
-
-
 
 class MovieTrailer extends BaseMovie {
 

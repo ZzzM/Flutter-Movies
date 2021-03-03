@@ -1,9 +1,8 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
+import 'package:movies/generated/l10n.dart';
 import 'package:movies/util/constant.dart';
-import 'package:movies/util/localization_manager.dart';
+
 import 'package:movies/util/network_manager.dart';
 import 'package:movies/util/router_manager.dart';
 import 'package:movies/view/refresh_view.dart';
@@ -72,7 +71,7 @@ class _SaveViewState extends State<SaveView> {
     return Container(
       margin: EdgeInsets.only(bottom: 5),
       child: Center(
-        child: Text(LocalizationManger.i18n(context, 'file.permission'), style: TextStyle(fontSize: 18)),
+        child: Text(S.of(context).file_permission, style: TextStyle(fontSize: 18)),
       ),
     );
   }
@@ -95,7 +94,7 @@ class _SaveViewState extends State<SaveView> {
                   RouterManager.pop(context);
                 },
                 textColor: ConsColor.theme,
-                child: Text(LocalizationManger.i18n(context, 'file.cancel')),
+                child: Text(S.of(context).file_cancel),
                 color: Colors.transparent,
                 shape: RoundedRectangleBorder(
                     side: BorderSide(color: ConsColor.theme)
@@ -112,7 +111,7 @@ class _SaveViewState extends State<SaveView> {
       return Padding(
           padding: EdgeInsets.only(bottom: 15),
           child: Center(
-            child: Text('${LocalizationManger.i18n(context, 'file.total')} $_totalSize M, ${LocalizationManger.i18n(context, 'file.completed')} $_completedSize M',
+            child: Text('${S.of(context).file_total} $_totalSize M, ${S.of(context).file_completed} $_completedSize M',
                 style: TextStyle(color: ConsColor.theme, fontSize: 18)),
           )
           //child: RefreshCircularIndicator(value: _indicatorValue, backgroundColor: Colors.black12)
@@ -130,8 +129,8 @@ class _SaveViewState extends State<SaveView> {
 
 
     },
-        child: Text(_isGranted ? _isSaved ?  LocalizationManger.i18n(context, 'file.save') : '${LocalizationManger.i18n(context, 'file.download')} (${_totalSize ?? 0} M)'
-            : LocalizationManger.i18n(context, 'file.settings')),
+        child: Text(_isGranted ? _isSaved ?  S.of(context).file_save : '${S.of(context).file_download} (${_totalSize ?? 0} M)'
+            : S.of(context).file_settings),
         textColor: Colors.white,
         color: ConsColor.theme);
   }

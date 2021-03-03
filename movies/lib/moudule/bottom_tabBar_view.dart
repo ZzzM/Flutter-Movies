@@ -1,6 +1,7 @@
-import 'package:movies/moudule/home/home_view.dart';
-import 'package:movies/moudule/rank/rank_view.dart';
+import 'package:movies/moudule/movies/movies_view.dart';
+import 'package:movies/moudule/search/search_view.dart';
 import 'package:movies/moudule/settings/settings_view.dart';
+import 'package:movies/moudule/tvs/tvs_view.dart';
 import 'package:movies/util/constant.dart';
 import 'package:flutter/material.dart';
 
@@ -55,6 +56,7 @@ class _BottomTabBarViewState extends State<BottomTabBarView> {
 }
 
 class TabNavigationItem {
+
   final Widget page;
   final String title;
   final Icon icon;
@@ -67,13 +69,18 @@ class TabNavigationItem {
 
   static final List<TabNavigationItem> items = [
     TabNavigationItem(
-      page: HomeView(),
-      icon: Icon(Icons.local_play),
+      page: MoviesView(),
+      icon: Icon(Icons.movie),
       title: '',
     ),
     TabNavigationItem(
-      page: RankView(),
-      icon: Icon(Icons.bookmark_border),
+      page: TVsView(),
+      icon: Icon(Icons.tv),
+      title: '',
+    ),
+    TabNavigationItem(
+      page: SearchView(),
+      icon: Icon(Icons.search),
       title: '',
     ),
     TabNavigationItem(

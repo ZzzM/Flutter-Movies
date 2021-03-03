@@ -8,7 +8,7 @@ import 'base_view_model.dart';
 class MovieViewModel extends BaseViewModel {
 
   Movie movie;
-  Color color;
+  Color color, titleColor;
 
   String id;
 
@@ -23,6 +23,7 @@ class MovieViewModel extends BaseViewModel {
   refreshCompleted(json) {
     movie = Movie.fromJson(json);
     color = hexColor(movie.color.primary);
+    titleColor = Colors.white;
   }
 
 }
@@ -48,6 +49,13 @@ class MovieRecommendViewModel extends BaseViewModel {
   @override
   bool get isEmpty => movies.isEmpty;
 
+  @override
+  bool get refreshNoData {
+    if (movies != null) {
+      return isEmpty;
+    }
+    return true;
+  }
 }
 
 class MovieCommentViewModel extends BaseListViewModel<CommentList> {

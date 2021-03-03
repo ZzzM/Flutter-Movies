@@ -1,4 +1,4 @@
-
+import 'package:movies/generated/l10n.dart';
 import 'package:movies/util/util.dart';
 import 'package:movies/view/error_view.dart';
 import 'package:movies/view/movie/movie_cover_view.dart';
@@ -21,8 +21,8 @@ import 'movie_recommend_view.dart';
 
 class MovieView extends StatelessWidget {
 
-  final String id;
-  final String title;
+  final String id, title;
+
 
   MovieView(this.id, this.title);
 
@@ -36,19 +36,24 @@ class MovieView extends StatelessWidget {
       viewModel: MovieViewModel(id),
       builder: (context, model, _) {
 
+        final iconColor = _themeData.appBarTheme.textTheme.headline6.color;
+
+        final backgroundColor = _isDark ? _themeData.scaffoldBackgroundColor : model.color;
+        final titleColor = _isDark ? iconColor: model.titleColor ?? iconColor;
+
         return Scaffold(
           appBar: AppBar(
+            brightness: Brightness.dark,
+            backgroundColor: backgroundColor,
             elevation: 0,
-            backgroundColor: _isDark ? _themeData.primaryColor : model.color,
-            title: Text(title),
-            centerTitle: true,
+            title: Text(title, style: TextStyle(color: titleColor)),
             actions: _actionButtons(context, model),
+            iconTheme: IconThemeData(color: titleColor),
           ),
           body: SafeArea(
             child: _body(model),
           ),
-          backgroundColor:
-              _isDark ? _themeData.scaffoldBackgroundColor : model.color,
+          backgroundColor:backgroundColor,
         );
       },
     );
@@ -65,11 +70,7 @@ class MovieView extends StatelessWidget {
         children: [
           IconButton(
               icon: Icon(Icons.movie_filter),
-              onPressed: () {
-                return showModalBottomSheet(context: context, builder: (_) {
-                  return MovieRecommendView(id);
-                });
-              })
+              onPressed: () => showModalContent(context, S.of(context).movie_recommended, MovieRecommendView(id)))
         ],
       )
     ];

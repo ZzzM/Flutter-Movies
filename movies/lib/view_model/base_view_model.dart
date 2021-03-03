@@ -1,3 +1,4 @@
+import 'package:movies/generated/l10n.dart';
 import 'package:movies/model/base_model.dart';
 import 'package:dio/dio.dart';
 import 'package:movies/util/network_manager.dart';
@@ -8,7 +9,7 @@ class BaseListViewModel<T extends BaseList> extends BaseViewModel {
 
   T list;
 
-  final String id;
+  String id;
 
   int pageStart = 0, pageSize = 0;
 
@@ -77,7 +78,7 @@ class BaseViewModel extends StateViewModel {
    bool get refreshNoData { return false; }
    bool get loadNoData { return false; }
 
-   Api get api { return Api.fetchMovie; }
+   Api get api { return Api.fetchDetail; }
    String get extra { return ''; }
    Map<String, dynamic> get param { return {}; }
 
@@ -87,7 +88,7 @@ class BaseViewModel extends StateViewModel {
        refreshCompleted(response.data);
        setViewState(ViewState.refreshCompleted);
        if (isEmpty) {
-         setViewState(ViewState.empty, message: 'refresh.empty');
+         setViewState(ViewState.empty);
        }
      }, onError:(error) {
        setViewState(ViewState.refreshError, message: error.message);

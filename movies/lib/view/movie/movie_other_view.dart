@@ -1,3 +1,4 @@
+import 'package:movies/generated/l10n.dart';
 import 'package:movies/model/movie_model.dart';
 import 'package:flutter/material.dart';
 import 'package:movies/util/router_manager.dart';
@@ -12,7 +13,10 @@ class MovieOtherView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final types = [RouterType.photos, RouterType.comments, RouterType.reviews];
-    final titles = ['movie.photos', 'movie.comments', 'movie.review'];
+    final titles = [
+      S.of(context).movie_photos,
+      S.of(context).movie_comments,
+      S.of(context).movie_review];
 
     return Container(
         child: Column(
@@ -22,7 +26,7 @@ class MovieOtherView extends StatelessWidget {
                 title: BaseTitleView(title),
                 trailing: Icon(Icons.chevron_right, color: Colors.white),
                 onTap: () {
-                  RouterManager.toMovie(context, type, movie.id, movie.title);
+                  RouterManager.toDetail(context, type, movie.path, movie.title);
                 });
 
           }),

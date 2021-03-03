@@ -1,12 +1,10 @@
-
-import 'package:movies/util/localization_manager.dart';
-import 'package:movies/util/router_manager.dart';
+import 'package:movies/generated/l10n.dart';
 import 'package:movies/util/util.dart';
 import 'package:movies/view/provider_view.dart';
 
 import 'package:movies/view_model/base_view_model.dart';
 import 'package:flutter/material.dart';
-import 'package:movies/view_model/language_view_model.dart';
+import 'package:movies/view_model/locale_view_model.dart';
 import 'package:provider/provider.dart';
 
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -24,7 +22,7 @@ class BaseTitleView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Text(LocalizationManger.i18n(context, text),
+      child: Text(text,
           style: TextStyle(
               color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
       margin: EdgeInsets.only(bottom: 5),
@@ -35,18 +33,20 @@ class BaseTitleView extends StatelessWidget {
 class BaseRefreshView<T extends BaseViewModel> extends StatelessWidget {
 
   final _refreshController = RefreshController();
-  final _scaffoldkey = GlobalKey<ScaffoldState>();
 
   final T viewModel;
+  final bool enablePullUp, enablePullDown, enableAppBar, transparent;
   final String title;
-  final bool enablePullUp, enableAppBar;
 
   BaseRefreshView({
-    this.title,
     this.viewModel,
+    this.title,
+    this.enablePullDown = true,
     this.enablePullUp = false,
-    this.enableAppBar = true
+    this.enableAppBar = true,
+    this.transparent = false,
   });
+
 
   @override
   Widget build(BuildContext context) {
@@ -55,11 +55,12 @@ class BaseRefreshView<T extends BaseViewModel> extends StatelessWidget {
         viewModel: viewModel,
         builder: (context, model, _) {
           return Scaffold(
-            key: _scaffoldkey,
             appBar: enableAppBar ? AppBar(
-                title: Consumer<LanguageViewModel>(
-                  builder: (context, _, child) {
-                    return titleView(context);
+              centerTitle: true,
+                backgroundColor: transparent ? Colors.transparent: null,
+                title: Consumer<LocaleViewModel>(
+                  builder: (context, _, __) {
+                    return _appBarView(context);
                   }
                 )
             ) : null,
@@ -67,7 +68,7 @@ class BaseRefreshView<T extends BaseViewModel> extends StatelessWidget {
               controller: _refreshController,
               header: RefreshHeader(),
               footer: enablePullUp ? RefreshFooter():null,
-              enablePullDown: !model.refreshNoData,
+              enablePullDown: enablePullDown ? !model.refreshNoData: false,
               enablePullUp: enablePullUp ? !model.refreshNoData : false,
               onRefresh: model.onRefresh,
               onLoading: enablePullUp ? model.onLoading : null,
@@ -77,6 +78,7 @@ class BaseRefreshView<T extends BaseViewModel> extends StatelessWidget {
         }
     );
   }
+
 
   Widget _refreshChild(BuildContext context, T viewModel) {
 
@@ -117,54 +119,71 @@ class BaseRefreshView<T extends BaseViewModel> extends StatelessWidget {
       case ViewState.refreshError:
       case ViewState.empty:
         if (viewModel.refreshNoData) {
-          return ErrorView(viewModel.message, onRefresh: viewModel.onRefresh);
+          return ErrorView(S.of(context).refresh_empty, onRefresh: viewModel.onRefresh);
         } else {
-          showSnackBar(_scaffoldkey, viewModel.message);
+          showSnackBar(context, S.of(context).refresh_empty);
           break;
         }
     }
 
-    return bodyView;
+    return bodyView(context);
 
   }
 
-  Widget get bodyView {
+  Widget _appBarView(BuildContext context) {
+
+    List<Widget> leftItem = [], rightItem = [];
+
+    if (leftView(context) != null) {
+      leftItem = [leftView(context)];
+    }
+
+    if (rightView(context) != null) {
+      rightItem = [rightView(context)];
+    }
+
+    if (leftItem.isNotEmpty || rightItem.isNotEmpty) {
+      return Stack(
+        alignment: Alignment.center,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: leftItem,
+          ),
+          titleView(context),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: rightItem,
+          ),
+        ],
+      );
+    }
+
+    return titleView(context);
+
+  }
+
+  Widget titleView(BuildContext context) {
+    return Text(title);
+  }
+
+  Widget leftView(BuildContext context) {
+    return null;
+  }
+
+  Widget rightView(BuildContext context) {
+    return null;
+  }
+
+
+
+  Widget  bodyView(BuildContext context) {
     return RefreshCircularIndicator();
   }
 
 
-  Widget titleView(BuildContext context) {
-    return Text(LocalizationManger.i18n(context, title));
-  }
+
+
+
 }
-
-class BaseAppBar extends PreferredSize {
-  final Widget child;
-  final double height;
-
-  BaseAppBar({@required this.child, this.height = kToolbarHeight});
-
-
-  @override
-  Size get preferredSize => Size.fromHeight(height);
-
-  @override
-  Widget build(BuildContext context) {
-
-    final statusBarHeight = MediaQuery.of(context).padding.top;
-
-    return Container(
-      height: preferredSize.height + statusBarHeight,
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          AppBar(),
-          Padding(padding: EdgeInsets.only(top: statusBarHeight),child: child)
-        ],
-      ),
-      // color: Colors.red,
-    );
-  }
-}
-
 

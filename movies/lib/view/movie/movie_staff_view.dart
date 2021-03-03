@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:movies/generated/l10n.dart';
 import 'package:movies/model/base_model.dart';
-import 'package:movies/model/movie_model.dart';
-import 'package:movies/util/localization_manager.dart';
 import 'package:flutter/material.dart';
 import '../base_view.dart';
 import '../gallery_view.dart';
@@ -27,7 +26,7 @@ class MovieStaffView extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              BaseTitleView('movie.casts'),
+              BaseTitleView(S.of(context).movie_casts),
               Container(
                   margin: EdgeInsets.only(top: 5),
                   height: 150,
@@ -46,7 +45,7 @@ class MovieStaffView extends StatelessWidget {
                           children: <Widget>[
                             _imageView(context, item, items),
                             Text(item.title, style: TextStyle(fontSize: 11, color: Colors.white, fontWeight: FontWeight.bold), overflow: TextOverflow.ellipsis,),
-                            Text(LocalizationManger.i18n(context, item.subTitle), style: TextStyle(fontSize: 9, color: Colors.white70))
+                            Text(item.subTitle.isNotEmpty ? S.of(context).movie_director : '', style: TextStyle(fontSize: 9, color: Colors.white70))
                           ],
                         ),
                       );
@@ -72,7 +71,10 @@ class MovieStaffView extends StatelessWidget {
           onTap: () {
             GalleryView.open(context, items, index);
           },
-          child: CachedNetworkImage(imageUrl: item.url, fit: BoxFit.cover)
+          child: Hero(
+            tag: item.url,
+            child: CachedNetworkImage(imageUrl: item.url, fit: BoxFit.cover),
+          )
         ),
       );
   }

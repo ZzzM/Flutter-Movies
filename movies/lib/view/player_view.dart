@@ -15,11 +15,15 @@ class PlayerView extends StatefulWidget {
   static open(BuildContext context, String url, {String title}) {
     Navigator.push(
         context,
-        MaterialPageRoute(
-            fullscreenDialog: true,
-            builder: (context) {
-              return PlayerView(url, title: title);
-            }));
+        PageRouteBuilder(
+            pageBuilder: (context, animation, __) {
+              return FadeTransition(
+                opacity: animation,
+                child: PlayerView(url, title: title),
+              );
+            }
+        )
+    );
   }
 
   final String url;
@@ -78,6 +82,7 @@ class _PlayerViewState extends State<PlayerView> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          iconTheme: IconThemeData(color: Colors.white),
           backgroundColor: Colors.transparent,
           leading: IconButton(
               icon: Icon(Icons.close),

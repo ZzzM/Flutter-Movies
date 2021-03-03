@@ -15,8 +15,13 @@ class WebpageView extends StatefulWidget {
   static open(BuildContext context,  String url, {String title}) {
     Navigator.push(
         context,
-        MaterialPageRoute(
-            builder: (context) => WebpageView(url, title: title)
+        PageRouteBuilder(
+          pageBuilder: (context, animation, __) {
+            return FadeTransition(
+                opacity: animation,
+              child: WebpageView(url, title: title),
+            );
+          }
         )
     );
   }

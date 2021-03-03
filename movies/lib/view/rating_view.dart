@@ -1,5 +1,5 @@
-import 'package:movies/util/localization_manager.dart';
 import 'package:flutter/material.dart';
+import 'package:movies/generated/l10n.dart';
 
 
 class RatingScoreView extends StatelessWidget {
@@ -26,8 +26,7 @@ class RatingScoreView extends StatelessWidget {
     return Text(
       isVaild
           ? text
-          : placeholder ??
-              LocalizationManger.i18n(context, 'movie.none_rating'),
+          : placeholder ?? S.of(context).movie_none_rating,
       style: TextStyle(
           fontSize: isVaild ? normalSize : noneSize,
           fontWeight: FontWeight.bold,

@@ -1,9 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:movies/generated/l10n.dart';
 import 'package:movies/view/rating_view.dart';
 import 'package:movies/model/movie_model.dart';
 
-import 'package:movies/util/localization_manager.dart';
-import 'package:movies/view_model/language_view_model.dart';
+import 'package:movies/view_model/locale_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -33,7 +33,8 @@ class ListItemView extends StatelessWidget {
               children: <Widget>[
                 _imageView,
                 _titleView,
-                _ratingView(context)],
+                _ratingView,
+              ],
             ),
           ),
         ));
@@ -106,7 +107,7 @@ class ListItemView extends StatelessWidget {
     );
   }
 
-  Widget _ratingView(BuildContext context) {
+  Widget get _ratingView {
     return Container(
       width: 80,
       child: Column(children: <Widget>[
@@ -120,9 +121,9 @@ class ListItemView extends StatelessWidget {
             halfCount: item.rating.halfCount,
             halfIcon:
             Icon(Icons.star_half, size: 16, color: Colors.amberAccent)),
-        Consumer<LanguageViewModel>(builder: (context, _, child) {
+        Consumer<LocaleViewModel>(builder: (context, _, __) {
           return Text(
-            "${item.rating.count}${LocalizationManger.i18n(context, 'movie.scored')}",
+            "${item.rating.count}${S.current.movie_scored}",
             style: TextStyle(
               fontSize: 10,
             ),

@@ -1,5 +1,5 @@
+import 'package:movies/generated/l10n.dart';
 import 'package:movies/model/movie_model.dart';
-import 'package:movies/util/localization_manager.dart';
 import 'package:flutter/material.dart';
 
 import '../rating_view.dart';
@@ -43,7 +43,7 @@ class MovieRatingView extends StatelessWidget {
                       size: 20, color: Colors.amberAccent),
                 ),
                 Text(
-                    '${movie.rating.count} ${LocalizationManger.i18n(context, 'movie.scored')}',
+                    '${movie.rating.count} ${S.of(context).movie_scored}',
                     style: TextStyle(fontSize: 10, color: Colors.white))
               ],
             ),
@@ -54,11 +54,11 @@ class MovieRatingView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   _textView(
-                      '${LocalizationManger.i18n(context, 'movie.release')}：${movie.released ? movie.pubdate : LocalizationManger.i18n(context, 'movie.unrelease')}'),
-                  _textView('${LocalizationManger.i18n(context, 'movie.genre')}：${movie.genres}'),
-                  _textView('${LocalizationManger.i18n(context, 'movie.duration')}：${movie.durations}'),
-                  _textView('${LocalizationManger.i18n(context, 'movie.region')}：${movie.countries}'),
-                  _textView('${LocalizationManger.i18n(context, 'movie.language')}：${movie.languages}'),
+                      '${S.of(context).movie_release}：${movie.released ? movie.pubdate : S.of(context).movie_unrelease}'),
+                  _textView('${S.of(context).movie_genre}：${movie.genres}'),
+                  _textView('${S.of(context).movie_duration}：${movie.durations}'),
+                  _textView('${S.of(context).movie_region}：${movie.countries}'),
+                  _textView('${S.of(context).movie_language}：${movie.languages}'),
                 ],
               ))
         ],

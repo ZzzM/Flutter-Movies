@@ -1,0 +1,6 @@
+movies/ios/Gemfile
+movies/ios/fastlane/.env
+movies/ios/fastlane/Appfile
+movies/ios/fastlane/Fastfile
+movies/ios/fastlane/README.md
+movies/ios/fastlane/report.xml

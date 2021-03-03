@@ -1,5 +1,3 @@
-
-import 'package:movies/model/movie_model.dart';
 import 'package:movies/model/photo_model.dart';
 
 class BaseList {
@@ -22,15 +20,19 @@ class BaseList {
 
 class BaseMovie {
 
-  String id, title, name;
+  String id, title, name, type;
   BaseRating rating;
+
+  String get path => '.$type.$id';
 
   BaseMovie();
 
   BaseMovie.fromJson(json){
+
     id = json['id'];
     title = json['title'];
     name = json['name'];
+    type = json['type'];
     rating = BaseRating.fromJson(json['rating']);
   }
 
@@ -103,6 +105,12 @@ class GalleryItem {
     id = 'photo_${item.id}';
     url = item.l.url;
   }
+
+  GalleryItem.formUrl(String value) {
+    id = value;
+    url = value;
+  }
+
 }
 
 

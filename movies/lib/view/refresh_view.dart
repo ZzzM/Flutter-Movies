@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:movies/util/constant.dart';
-import 'package:movies/util/localization_manager.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class RefreshHeader extends StatelessWidget {
@@ -23,7 +22,7 @@ class RefreshHeader extends StatelessWidget {
         refreshingText: '',
         releaseText: '',
         completeText: '',
-        failedText: LocalizationManger.i18n(context, 'refresh.refreshFailed'));
+    );
   }
 }
 
@@ -45,8 +44,6 @@ class RefreshFooter extends StatelessWidget {
       idleText: '',
       loadingText: '',
       canLoadingText: '',
-      noDataText: LocalizationManger.i18n(context, 'refresh.noMore'),
-      failedText: LocalizationManger.i18n(context, 'refresh.loadFailed'),
     );
   }
 }

@@ -1,15 +1,17 @@
-
 import 'package:flutter/services.dart';
 import 'package:movies/util/constant.dart';
-import 'package:movies/util/localization_manager.dart';
 import 'package:movies/util/router_manager.dart';
 import 'package:movies/util/storage_manager.dart';
+import 'package:movies/view_model/locale_view_model.dart';
 import 'package:movies/view_model/theme_view_model.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
+
+import 'generated/l10n.dart';
 
 
 void main() async {
@@ -18,7 +20,6 @@ void main() async {
 
   await StorageManager.setup().then((_) {
 
-    LocalizationManger.setup();
     RouterManager.setup();
     runApp(MovieApp());
     Permission.storage.request();
@@ -35,16 +36,6 @@ class MovieApp extends StatefulWidget {
 
 class _MovieAppState extends State<MovieApp> {
 
-  Widget _home;
-
-  @override
-  void initState() {
-    setState(() {
-      _home = TestView();
-    });
-    super.initState();
-
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,41 +44,30 @@ class _MovieAppState extends State<MovieApp> {
       DeviceOrientation.portraitUp,
     ]);
 
+
     return MultiProvider(
         providers: providers,
-        child: Consumer<ThemeViewModel>(
-          builder: (context, _, widget) {
+        child: Consumer2<ThemeViewModel, LocaleViewModel>(
+          builder: (context, viewModel1, viewModel2, widget) {
 
             return MaterialApp(
                 debugShowCheckedModeBanner: false,
                 theme: lightData,
                 darkTheme: darkData,
-                themeMode: StorageManager.themeMode,
+                themeMode: viewModel1.current,
                 initialRoute: '/',
                 onGenerateRoute: RouterManager.router.generator,
                 localizationsDelegates: [
-                  LocalizationManger.delegate,
+                  S.delegate,
+                  RefreshLocalizations.delegate,
                   GlobalMaterialLocalizations.delegate,
                   GlobalWidgetsLocalizations.delegate
-                ]
+                ],
+              supportedLocales: S.delegate.supportedLocales,
+              locale: viewModel2.current,
             );
           },
         )
-    );
-  }
-}
-
-class TestView extends StatefulWidget {
-  @override
-  _TestViewState createState() => _TestViewState();
-}
-
-class _TestViewState extends State<TestView> {
-  @override
-  Widget build(BuildContext context) {
-    print('TestView');
-    return Container(
-      color: Colors.blue,
     );
   }
 }

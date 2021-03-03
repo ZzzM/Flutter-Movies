@@ -1,5 +1,5 @@
+import 'package:movies/generated/l10n.dart';
 import 'package:movies/model/comment_model.dart';
-import 'package:movies/util/localization_manager.dart';
 import 'package:movies/view/base_view.dart';
 import 'package:movies/view/item/comment_item_view.dart';
 import 'package:movies/view/webpage_view.dart';
@@ -11,12 +11,12 @@ class MovieReviewView extends BaseRefreshView<MovieReviewViewModel> {
 
   MovieReviewView(id)
       : super(
-      title: 'movie.review',
+      title: S.current.movie_review,
       viewModel: MovieReviewViewModel(id),
       enablePullUp: true);
 
   @override
-  Widget get bodyView {
+  Widget bodyView(BuildContext context) {
 
     final list = viewModel.list;
 
@@ -28,7 +28,7 @@ class MovieReviewView extends BaseRefreshView<MovieReviewViewModel> {
 
           return CommentItemView(item, onTap: (){
             if (item.url.isNotEmpty) {
-              WebpageView.open(context, item.url, title:  LocalizationManger.i18n(context, title));
+              WebpageView.open(context, item.url, title:  title);
             }
           });
 
