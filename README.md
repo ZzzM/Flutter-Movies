@@ -1,12 +1,17 @@
 # Flutter Movies
-一款基于豆瓣电影 Api 使用 Flutter 开发的移动端应用。
+
+A movies news app developed by Flutter（***API is no longer available***）
+
+
+## Environment
 - Flutter: Channel stable, 1.22.6
 - Dart: 2.10.5
-- 运行环境：iOS 12.0 或以上（暂未适配 Android）
+- iOS 12.0 or later
 
-## 版本
 
-| 版本 |  说明 |
+## Version History
+
+|       |      |
 | ----  | ---- |
 | 2.6.0 | 界面重构<br>优化搜索 |
 | 2.1.0 | 支持搜索<br>支持图片、视频下载<br>支持视频全屏播放 |
@@ -15,21 +20,21 @@
 | 1.0.0 | - |
 
 
-## 预览
+## Snapshots
 
-- 主页
+- Home page
 
 <img src="previews/1.gif" width = 200> <img src="previews/2.gif" width = 200>
 <img src="previews/3.gif" width = 200> <img src="previews/4.gif" width = 200>
 
 
-- 详情
+- Detail page
 
 <img src="previews/5.gif" width = 200> <img src="previews/6.gif" width = 200>
 <img src="previews/7.gif" width = 200> <img src="previews/8.gif" width = 200>
 
 
-## 依赖库
+## Libraries
 - cached_network_image
 - dio
 - provider
