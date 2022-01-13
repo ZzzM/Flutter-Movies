@@ -1,22 +1,26 @@
 # Flutter Movies
 
-A movies news app developed by Flutter（***API is no longer available***）
+A movies news App developed by Flutter（ ⚠️ **API is no longer available** ）
 
 
-## Environment
-- Flutter: Channel stable, 1.22.6
-- Dart: 2.10.5
-- iOS 12.0 or later
+## Features
+- [x] Switching theme dynamically
+- [x] Internationalization (简体中文、English)
+- [x] Video, photo download
+- [x] Video play 
 
+
+## Compatibility
+- Requires **iOS 12.0** or later
 
 ## Version History
 
 |       |      |
 | ----  | ---- |
-| 2.6.0 | 界面重构<br>优化搜索 |
-| 2.1.0 | 支持搜索<br>支持图片、视频下载<br>支持视频全屏播放 |
-| 2.0.0 | 界面重构、优化<br>接口更新<br> |
-| 1.1.0 | 默认语言改为简体中文<br>支持分享功能<br>支持分享功能<br>修复视频播放Bug<br>简化侧边栏 |
+| 2.6.0 | Enhance search |
+| 2.1.0 | Support search<br>Support video and photo download<br>Support full-screen video |
+| 2.0.0 | Update API |
+| 1.1.0 | Support Sharing |
 | 1.0.0 | - |
 
 
