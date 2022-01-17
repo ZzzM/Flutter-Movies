@@ -1,4 +1,12 @@
-# Flutter Movies
+<h1>
+Flutter Movies</br>
+<a href="https://raw.githubusercontent.com/ZzzM/ Flutter-Movies
+/master/LICENSE">
+  <img src="https://img.shields.io/github/license/ZzzM/Flutter-Movies"></a>
+<a href="https://zzzm.github.io/2020/02/26/movies_flutter/">
+  <img src="https://img.shields.io/badge/docs-%E4%B8%AD%E6%96%87-red">
+</a>
+</h1>
 
 A movies news App developed by Flutter（ ⚠️ **API is no longer available** ）
 
