@@ -13,7 +13,7 @@ A movies news App developed by Flutter（ ⚠️ **API is no longer available** 
 
 ## Features
 - [x] Switching theme dynamically
-- [x] Internationalization (简体中文、English)
+- [x] Localization (简体中文、English)
 - [x] Video, photo download
 - [x] Video play 
 
@@ -46,7 +46,7 @@ A movies news App developed by Flutter（ ⚠️ **API is no longer available** 
 <img src="previews/7.gif" width = 200> <img src="previews/8.gif" width = 200>
 
 
-## Libraries
+## Dependencies
 - cached_network_image
 - dio
 - provider
