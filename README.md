@@ -8,8 +8,8 @@ Flutter Movies</br>
 </a>
 </h1>
 
-A movies news App developed by Flutter（ ⚠️ **API is no longer available** ）
 
+A mobile app for movie information based on Flutter（ ❌ *API is unavailable* ）
 
 ## Features
 - [x] Switching theme dynamically
